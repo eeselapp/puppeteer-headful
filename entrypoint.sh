@@ -13,7 +13,7 @@ echo "Running '$cmd'!"
 
 for i in {1..3}; do $cmd && break || sleep 5; done
 
-if $?; then
+if [ $? -eq 0 ]; then
     # no op
     echo "Successfully ran '$cmd'"
 else
