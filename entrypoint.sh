@@ -10,7 +10,10 @@ export PUPPETEER_EXEC_PATH="google-chrome-stable"
 # Run commands
 cmd=$@
 echo "Running '$cmd'!"
-if $cmd; then
+
+for i in {1..3}; do command && break || sleep 5; done
+
+if $?; then
     # no op
     echo "Successfully ran '$cmd'"
 else
