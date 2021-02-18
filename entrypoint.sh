@@ -11,7 +11,7 @@ export PUPPETEER_EXEC_PATH="google-chrome-stable"
 cmd=$@
 echo "Running '$cmd'!"
 
-for i in {1..3}; do command && break || sleep 5; done
+for i in {1..3}; do $cmd && break || sleep 5; done
 
 if $?; then
     # no op
