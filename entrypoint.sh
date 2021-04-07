@@ -11,13 +11,22 @@ export PUPPETEER_EXEC_PATH="google-chrome-stable"
 cmd=$@
 echo "Running '$cmd'!"
 
-for i in {1..3}; do $cmd && break || sleep 5; done
+for i in {1..3}; do
+  $cmd
+  exit_code=$?
 
-if [ $? -eq 0 ]; then
+  if [ $exit_code -eq 0 ] || [ $i -eq 3 ]; then
+    break
+  fi
+
+  sleep 5;
+  echo "Retrying '$cmd'"
+done
+
+if [ $exit_code -eq 0 ]; then
     # no op
     echo "Successfully ran '$cmd'"
 else
-    exit_code=$?
     echo "Failure running '$cmd', exited with $exit_code"
     echo ''
     echo 'BREAKING CHANGE !!!'
